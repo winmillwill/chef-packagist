@@ -1,0 +1,25 @@
+server {
+    listen 80;
+
+    server_name packagist.dev;
+    root <%= File.join(node.packagist.web_root, 'packagist') %>/web;
+
+    rewrite ^/app\.php/?(.*)$ /$1 permanent;
+
+    location / {
+        index app.php;
+        try_files $uri @rewriteapp;
+    }
+
+    location @rewriteapp {
+        rewrite ^(.*)$ /app.php/$1 last;
+    }
+
+    location ~ ^/(app|app_dev|config)\.php(/|$) {
+        fastcgi_pass <%= node['php-fpm'].pools.www.listen %>;
+        fastcgi_split_path_info ^(.+\.php)(/.*)$;
+        include fastcgi_params;
+        fastcgi_param  SCRIPT_FILENAME $document_root$fastcgi_script_name;
+        fastcgi_param  HTTPS off;
+    }
+}
