@@ -2,3 +2,4 @@ source "https://api.berkshelf.com"
 
 metadata
 cookbook 'packagist', path: '../../../../'
+cookbook 'application_solr', path: '~/chef/application_solr'

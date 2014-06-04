@@ -6,6 +6,11 @@
       "database": "default",
       "username": "default",
       "password": "default"
+    },
+    "mb": {
+      "database": "packagist",
+      "username": "packagist",
+      "password": "packagist"
     }
   }
 }
