@@ -1,0 +1,3 @@
+use php55
+update add packages command
+- alternatively, smaller sample size for ease of testing the update command

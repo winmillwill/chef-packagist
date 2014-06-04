@@ -3,7 +3,7 @@ driver:
   name: vagrant
 
 provisioner:
-  name: chef_solo
+  name: chef_zero
 
 platforms:
   - name: ubuntu-12.04
@@ -15,20 +15,25 @@ suites:
     roles_path: test/fixtures/roles
     attributes:
       packagist:
+        parameters:
+          database_user: default
+          database_name: default
+          database_password: default
         nelmio_solarium:
           clients:
             default:
               dsn: 'http://localhost:8080/solr/packagist'
       solr_app:
         url: 'http://archive.apache.org/dist/lucene/solr/3.6.2/apache-solr-3.6.2.tgz'
-        version: '3.6.2'
-        archive_war_path: 'apache-solr-3.6.2/dist/apache-solr-3.6.2.war'
       php-fpm:
         pools:
           www:
             listen: '127.0.0.1:9000'
+      application_solr:
+        cores:
+          packagist:
+            schema_xml: https://raw.githubusercontent.com/composer/packagist/master/doc/schema.xml
     run_list:
-      - recipe[apt]
+      - recipe[test_packagist]
       - role[db_master]
       - recipe[packagist]
-      - recipe[test_packagist]

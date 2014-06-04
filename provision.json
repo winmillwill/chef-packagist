@@ -1,0 +1,35 @@
+{
+  "options": {
+      "ssh": {
+          "user": "ubuntu",
+          "keys": ["~/.ssh/drupal-packagist.rsa"],
+          "sudo": true
+      },
+      "image_id": "ami-b08b6cd8",
+      "key_name": "drupal-packagist",
+      "provisioner": "aws",
+      "availability_zone": "us-east-1a"
+  },
+  "nodes": [
+    {
+      "groups": ["app::app"],
+      "type": "m1.small",
+      "count": 1
+    },
+    {
+      "groups": ["app::db"],
+      "type": "m1.large",
+      "count": 1
+    },
+    {
+      "groups": ["app::cache"],
+      "type": "m1.small",
+      "count": 1
+    },
+    {
+      "groups": ["app::search"],
+      "type": "m1.small",
+      "count": 1
+    }
+  ]
+}

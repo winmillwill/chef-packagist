@@ -1,0 +1,100 @@
+{
+  "name": "mb_vagrant",
+  "description": "",
+  "cookbook_versions": {
+    "application": "= 3.0.0",
+    "application_java": "= 2.0.0",
+    "application_solr": "= 0.1.0",
+    "apt": "= 2.4.0",
+    "ark": "= 0.8.2",
+    "aws": "= 2.2.2",
+    "build-essential": "= 2.0.2",
+    "chef-solo-search": "= 0.5.1",
+    "chef_handler": "= 1.1.6",
+    "composer": "= 1.0.1",
+    "database": "= 2.2.0",
+    "dmg": "= 2.2.0",
+    "git": "= 4.0.2",
+    "hostsfile": "= 2.4.4",
+    "iis": "= 2.1.2",
+    "java": "= 1.22.0",
+    "mysql": "= 5.2.12",
+    "mysql-chef_gem": "= 0.0.2",
+    "nginx": "= 2.7.0",
+    "ohai": "= 2.0.0",
+    "openssl": "= 1.1.0",
+    "packagist": "= 0.1.5",
+    "php": "= 1.4.6",
+    "php-fpm": "= 0.6.7",
+    "postgresql": "= 3.4.0",
+    "redisio": "= 1.7.1",
+    "runit": "= 1.5.10",
+    "test_packagist": "= 0.1.0",
+    "tomcat": "= 0.15.12",
+    "ulimit": "= 0.3.2",
+    "windows": "= 1.31.0",
+    "xfs": "= 1.1.0",
+    "xml": "= 1.2.4",
+    "yum": "= 3.2.0",
+    "yum-epel": "= 0.3.6",
+    "bluepill": "= 2.3.1",
+    "rsyslog": "= 1.12.2"
+  },
+  "json_class": "Chef::Environment",
+  "chef_type": "environment",
+  "default_attributes": {
+    "packagist": {
+      "repository": "https://github.com/winmillwill/packagist",
+      "ref": "bg-updates",
+      "parameters": {
+        "github.client_id": "notaclientid",
+        "github.client_secret": "notaclientsecret",
+        "database_host": "10.133.33.102",
+        "database_user": "packagist",
+        "database_password": "packagist",
+        "redis_dsn": "redis://10.133.33.103/1"
+      },
+      "nelmio_solarium": {
+        "clients": {
+          "default": {
+            "dsn": "http://10.133.33.104:8080/solr/packagist"
+          }
+        }
+      },
+      "old_sound_rabbit_mq": {
+          "producers": {
+              "update_packages": {
+                  "connection": "default",
+                  "exchange_options": {
+                      "name": "update-packages",
+                      "type": "direct"
+                  }
+              }
+          },
+          "consumers": {
+              "update_packages": {
+                  "connection": "default",
+                  "exchange_options": {
+                      "name": "update-packages",
+                      "type": "direct"
+                  },
+                  "queue_options": {
+                      "name": "update-packages"
+                  },
+                  "callback": "packagist.background_package_updater"
+              }
+          }
+      }
+    },
+    "set_fqdn": "drupal-packagist.org",
+    "application_solr": {
+      "cores": {
+        "packagist": {
+          "schema_xml": "https://raw.githubusercontent.com/composer/packagist/master/doc/schema.xml"
+        }
+      }
+    }
+  },
+  "override_attributes": {
+  }
+}

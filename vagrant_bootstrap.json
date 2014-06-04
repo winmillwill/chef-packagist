@@ -1,0 +1,30 @@
+{
+  "options": {
+      "ssh": {
+          "user": "vagrant",
+          "keys": ["~/.vagrant.d/insecure_private_key"]
+      }
+  },
+  "nodes": [
+    {
+      "groups": ["app::app"],
+      "hosts": ["10.133.33.101"]
+    },
+    {
+      "groups": ["app::db"],
+      "hosts": ["10.133.33.102"]
+    },
+    {
+      "groups": ["app::cache"],
+      "hosts": ["10.133.33.103"]
+    },
+    {
+      "groups": ["app::search"],
+      "hosts": ["10.133.33.104"]
+    },
+    {
+      "groups": ["app::queue"],
+      "hosts": ["10.133.33.105"]
+    }
+  ]
+}
