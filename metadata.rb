@@ -7,6 +7,7 @@ long_description 'Installs/Configures packagist'
 version          '0.1.5'
 
 depends 'application_solr'
+depends 'apt'
 depends 'build-essential'
 depends 'certificate'
 depends 'composer'

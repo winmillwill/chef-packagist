@@ -62,6 +62,9 @@ end
 
 if platform_family? 'debian'
   php_confd = '/etc/php5/conf.d'
+  if platform? 'ubuntu'
+    php_confd = '/etc/php5/mods-available'
+  end
 else
   php_confd = '/etc/php.d'
 end
@@ -177,7 +180,7 @@ bash "add packages" do
 end
 
 remote_file "#{Chef::Config[:file_cache_path]}/projects" do
-  source "https://gist.githubusercontent.com/winmillwill/93580a4f52852975bc65/raw/641feecb7948b819c81414cc621f065af3df8853/gistfile1.txt"
+  source "https://gist.githubusercontent.com/winmillwill/481104a7fcad1bed1518/raw/266489d80705777948c2012fc5c01390e8878ef2/gistfile1.txt"
   action :create_if_missing
   notifies :run, "bash[add packages]"
 end
