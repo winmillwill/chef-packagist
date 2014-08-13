@@ -5,7 +5,7 @@ server {
     ssl_certificate <%= @ssl_cert %>
     ssl_certificate_key <%= @ssl_key %>
   <% end %>
-    server_name <%= node.set_fqdn %>;
+    server_name <%= node.fqdn %>;
     root <%= File.join(node.packagist.web_root, 'packagist') %>/web;
 
     rewrite ^/app\.php/?(.*)$ /$1 permanent;

@@ -5,14 +5,18 @@ stack_order do
     bootstrap 'app::cache'
     bootstrap 'app::queue'
   end
-  bootstrap 'app::app'
+  bootstrap 'app::app_worker'
+  bootstrap 'app::app_master'
 end
 
 component 'app' do
   description "Packagist application"
 
-  group 'app' do
-    recipe 'packagist::app'
+  group 'app_master' do
+    recipe 'packagist::bootstrap_app'
+  end
+  group 'app_worker' do
+    recipe 'packagist::app_worker'
   end
   group 'cache' do
     recipe 'packagist::redis'
