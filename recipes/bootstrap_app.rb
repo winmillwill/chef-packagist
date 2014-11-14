@@ -1,8 +1,7 @@
 include_recipe 'packagist::install_app'
 
 remote_file "#{Chef::Config[:file_cache_path]}/packagist_projects" do
-  source 'https://gist.githubusercontent.com/winmillwill/93580a4f52852975bc65/raw/641feecb7948b819c81414cc621f065af3df8853/gistfile1.txt'
-  action :create_if_missing
+  source 'https://drupal.org/files/releases.tsv'
 end
 
 packagist_path = File.join(node.packagist.web_root, 'packagist')
@@ -22,7 +21,7 @@ bash 'symfony install' do
     ./app/console -q -n --no-ansi assets:install --symlink web
     ./app/console -q -n --no-ansi doctrine:schema:create
     ./app/console -q -n --no-ansi cache:clear --env prod
-    ./app/console packagist:bulk_add --repo-pattern 'http://git.drupal.org/project/%2\$s' --vendor drupal #{Chef::Config[:file_cache_path]}/packagist_projects
+    ./app/console packagist:bulk_add --repo-pattern 'http://git.drupal.org/project/%2\$s' --vendor drupal $(cat #{Chef::Config[:file_cache_path]}/packagist_projects | grep 7.x | awk '{ print $3 }' | sort | uniq -)
     #{update}
   }
 end

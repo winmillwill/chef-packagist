@@ -1,6 +1,6 @@
 VAGRANTFILE_API_VERSION = "2"
 
-count = 5
+count = 1
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   (1..count).each do |number|

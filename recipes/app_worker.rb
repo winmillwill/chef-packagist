@@ -11,5 +11,7 @@ supervisor_service "packagist_add" do
   environment({
     "HOME" => "/home/#{node.packagist.user}"
   })
+  process_name '%(program_name)s_%(process_num)02d'
+  numprocs 2
   autorestart false
 end

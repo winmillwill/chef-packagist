@@ -4,7 +4,7 @@ maintainer_email ''
 license          ''
 description      'Installs/Configures packagist'
 long_description 'Installs/Configures packagist'
-version          '0.2.6'
+version          '0.2.7'
 
 depends 'application_solr'
 depends 'apt'
